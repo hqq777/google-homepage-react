@@ -1,0 +1,45 @@
+/* header */
+header {
+    width: 100%;
+    height:47px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a{
+    color: #000;
+    z-index: 10;
+    text-decoration: none;
+}
+
+header a:not(:last-child){
+    margin-right: 16px;
+}
+
+.auto-left{
+    margin-left: auto;
+}
+
+.header-right{
+    opacity: 0.87;
+}
+
+header .google-app-search {
+    display: block;
+    height: 100%;
+    width: 25px;
+}
+
+header .login {
+    border-radius: 50%;
+    height: 100%;
+    width: 28px;
+    margin-right: 0;
+}
+
+header a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
