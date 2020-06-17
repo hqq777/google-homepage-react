@@ -26,3 +26,15 @@
     transform: rotate(360deg);
   }
 } */
+
+.mask {
+  z-index : 1;
+  /* border : 10px solid red;
+  background-color : green; */
+  /* display: none; */
+  position : fixed;
+  top : 0;
+  bottom : 0;
+  left : 0;
+  right : 0;
+}

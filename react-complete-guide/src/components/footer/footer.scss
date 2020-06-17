@@ -1,0 +1,66 @@
+/* footer */
+footer {
+    width: 100%;
+    min-width: 1000px;
+    height: 40px;
+    padding: 10px 30px;
+    background-color: #f2f2f2;
+    border-top: 1px solid #e4e4e4;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+footer a {
+    font-size: 14px;
+    color: #5F6368;
+    z-index: 10;
+    
+    text-decoration: none;
+}
+
+footer a:not(:last-child){
+    margin-right: 27px;
+}
+
+footer a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+
+/* setting  */
+    .setting {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        height: 300px;
+        width:180px;
+        border: solid 1px #999999;
+        box-shadow: 0 0 5px #c5c5c5;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: left;
+        z-index: 10;
+    }
+
+    .setting a{
+        margin-left: 30px;
+        font-size: 14px;
+        color: #5F6368;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .setting a:hover{
+        text-decoration: underline;
+        color:#3c4043;
+    }

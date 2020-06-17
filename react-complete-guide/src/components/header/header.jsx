@@ -1,7 +1,7 @@
-import React from 'react';
-import './header.css';
+import React, {useState, useEffect} from 'react';
+import './header.scss';
 
-const Header = () => {
+const Header = (props) => {
     // app-group
     const apps_1 = [
         {
@@ -123,144 +123,132 @@ const Header = () => {
             name: "Earth"
         }
     ];
-
-    const addApps = () => {
-        let app = document.getElementById("app");
-        // var group_data = require('./apps.json');
-        // var group_1_data = app_group["group_1"];
-        // var group_2_data = app_group["group_2"];
-        let group_1_data = apps_1;
-        let group_2_data = apps_2;
-
-        let group_1_apps = document.createElement("section");
-        group_1_apps.setAttribute("class", "icon-group");
-        add_app_group(group_1_apps, group_1_data);
-        app.appendChild(group_1_apps);
-
-        let hr = document.createElement("hr");
-        app.appendChild(hr);
-
-        let group_2_apps = document.createElement("section");
-        group_2_apps.setAttribute("class", "icon-group");
-        add_app_group(group_2_apps, group_2_data);
-        app.appendChild(group_2_apps);
-
-        let button = document.createElement("a");
-        button.setAttribute("class", "app-manage-button");
-        button.setAttribute("href", "https://about.google/intl/en/products/?tab=wh&tip=parking-reminder");
-        button.innerHTML = "More from Google";
-        app.appendChild(button);
-
-    }
-
-    const add_app_group = (app, group) => {
-        for(let idx = 0; idx < group.length; idx ++){
-            let item = document.createElement("a");
-            item.setAttribute("class", "app-item");
-            item.setAttribute("href", group[idx]["link"]);
-
-            let item_img = document.createElement("img");
-            item_img.setAttribute("src", group[idx]["icon_link"]);
-            if(idx === 0){
-                item_img.style = "border-radius: 50%";
-            }
-            item.appendChild(item_img);
-
-            let item_span = document.createElement("span");
-            item_span.innerHTML = group[idx]["name"];
-            item.appendChild(item_span);
-
-            app.appendChild(item);
+    const cusStyle = {
+        userBorder: {
+            borderRadius: '50%'
+        },
+        othersBorder: {
+            borderRadius: 0
         }
-    }
-
-    // add mask layer
-    const display_hidden_all = () => {
-        console.log("display_hidden_all");
-        for(let idx = 0; idx < eles_id.length; idx ++){
-            let ele = document.getElementById(eles_id[idx]);
-                ele.style.display = "none";
+    };
+    const userInfo = [
+        {
+            userIcon: "H",
+            userName: "Haiqi Ma",
+            userEmailAddr: "haiqima@bu.edu"
+        },
+        {
+            userIcon: "Q",
+            userName: "Haiqiqi",
+            userEmailAddr: "haiqiqi@idk.com"
         }
-    }
-
-    const mask_layer = () => {
-        console.log("mask_layer");
-        let mask = document.getElementById("mask");
-        mask.style.display = "none";
-        display_hidden_all();
-    }
+    ];
     
-    // display element
-    let eles_id = ["app", "user", "setting"];
-    const header_a_html = document.getElementById("header").getElementsByTagName("a");
-    const header_a = new Array(4);
-    for(let idx = 0; idx < 4; idx ++){
-        header_a[idx] = header_a_html[idx];
-    }
-    const footer_a_html = document.getElementById("footer").getElementsByTagName("a");
-    const footer_a = new Array(5);
-    for(let idx = 0; idx < 5; idx ++){
-        footer_a[idx] = footer_a_html[idx];
-    }
-    const search_group_input = document.getElementById("search-button-group")
-        .getElementsByTagName("input");
-    const search_text = document.getElementById("search-text");
-    let items = [...header_a, ...footer_a, ...search_group_input, search_text];
-    for(let idx = 0; idx < items.length; idx ++){
-        items[idx].addEventListener("mousedown",display_hidden_all, true);
-    }
+    const [appShow, setAppShow] = useState(false);
+    const [userShow, setUserShow] = useState(false);
+    const hide = () => {
+        // console.log(props.maskStatus);
+        // console.log(appShow);
+        if((props.maskStatus === false ||  props.contentStatus === true) && appShow)
+            setAppShow(false);
 
-    const initial_hide_elements = () => {
-        for(let idx = 0; idx < eles_id.length; idx ++){
-            let ele = document.getElementById(eles_id[idx]);
-            ele.style.display = "none";
-        }
+        if((props.maskStatus === false || props.contentStatus === true) && userShow)
+            setUserShow(false);
     }
-
-    const display_element = (ele_id) => {
-        let ele = document.getElementById(ele_id);
-        for(let idx = 0; idx < eles_id.length; idx ++){
-            if(eles_id[idx] === ele_id){
-                if(ele.style.display === "none"){
-                    if(ele_id === 'setting')
-                        ele.style.display = "flex";
-                    else ele.style.display = "block";
-                    let mask = document.getElementById("mask");
-                    mask.style.width = window.innerwidth + 'px';
-                    mask.style.height = window.innerHeight + 'px';
-                    mask.style.display = "block";
-                    mask.style.zIndex = 1;
-                    mask.addEventListener("mousedown", mask_layer, true );
-                }
-                else{
-                    ele.style.display = "none";
-                }
-            }
-            else{
-                let ele_other = document.getElementById(eles_id[idx]);
-                ele_other.style.display = "none";
-            }
-        }
-        ele.scrollTo(0, 0);
-    }
-
-    
 
     return (
-        <header>
-            <a href="https://about.google/?fg=1&amp;utm_source=google-US&amp;utm_medium=referral&amp;utm_campaign=hp-header">About</a>
-            <a href="https://store.google.com/US?utm_source=hp_header&amp;utm_medium=google_ooo&amp;utm_campaign=GS100042&amp;hl=en-US">Store</a>
-            <a class="header-right auto-left" href="https://mail.google.com/mail/?tab=wm&amp;authuser=0&amp;ogbl">Gmail</a>
-            <a class="header-right" href="https://www.google.com/imghp?hl=en&amp;tab=wi&amp;authuser=0&amp;ogbl">Images</a>
-            <a href="# " onClick={this.display_element('app')}>
-                <img class="google-app-search" src="https://api.iconify.design/foundation:thumbnails.svg?color=%23404040" alt="app-group-icon"/>
-            </a>
-            <a href="# ">
-                <img class="login" src="http://geniusvets.s3.amazonaws.com/gv-dog-breeds/siberian-husky-1.jpg" alt="login-icon"/> 
-            </a>
-        </header>
-    )
+        <div> 
+            {hide()}
+            <header id="header">
+                <a href="https://about.google/?fg=1&amp;utm_source=google-US&amp;utm_medium=referral&amp;utm_campaign=hp-header">About</a>
+                <a href="https://store.google.com/US?utm_source=hp_header&amp;utm_medium=google_ooo&amp;utm_campaign=GS100042&amp;hl=en-US">Store</a>
+                <a className="header-right auto-left" href="https://mail.google.com/mail/?tab=wm&amp;authuser=0&amp;ogbl">Gmail</a>
+                <a className="header-right" href="https://www.google.com/imghp?hl=en&amp;tab=wi&amp;authuser=0&amp;ogbl">Images</a>
+                <a href="# " onClick={() => {setAppShow(!appShow);props.maskStatusChange(!appShow);}}>
+                    <img className="google-app-search" src="https://api.iconify.design/foundation:thumbnails.svg?color=%23404040" alt="app-group-icon"/>
+                </a>
+                <a href="# " onClick={() => {setUserShow(!userShow);props.maskStatusChange(!userShow);}}>
+                    <img className="login" src="http://geniusvets.s3.amazonaws.com/gv-dog-breeds/siberian-husky-1.jpg" alt="login-icon"/> 
+                </a>
+            </header>
+            {
+                appShow &&
+                <div id="app" className="app">
+                    <section className="icon-group">
+                        {
+                            apps_1.map((app, index) => (
+                                <a className="app-item" href={app.link}>
+                                    <img src={app.icon_link} style={index === 0 ? {borderRadius:50 + '%'} : {borderRadius: 0}} alt="icon-img"></img>
+                                    <span>{app.name}</span>
+                                </a>
+                            ))
+                        }
+                    </section>
+                    <hr />
+                    <section className="icon-group">
+                    {
+                        apps_2.map((app, index) => (
+                            <a className="app-item" href={app.link}>
+                                <img src={app.icon_link} style={index === 0 ? cusStyle.userBorder : cusStyle.othersBorder} alt="icon-img"></img>
+                                <span>{app.name}</span>
+                            </a>
+                        ))
+                    }
+                    </section>
+                    <a className="app-manage-button" href="https://about.google/intl/en/products/?tab=wh&tip=parking-reminder">
+                        More from Google
+                    </a>
+                </div>
+            }
+            {
+                userShow &&
+                <div id="user" className="user">
+                    <section className="user-logo">
+                        <div className="logo-background">qq</div>
+                        <span className="logo-camera-background"></span>
+                        <div className="logo-camera">
+                            <svg className="camera-logo" height="26" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"><path d="M20 5h-3.17L15 3H9L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 14H4V7h16v12zM12 9c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"></path></svg>
+                        </div>
+                    </section>
+                    <section className="current-user">
+                        <div className="current-user-name">qq h</div>
+                        <div className="current-user-email">hqq@gmail.com</div>
+                    </section>
+                    <a className="user-manage-button hover-background-grey" href="# ">
+                        Manage your Google Account
+                    </a>
+                    <section className="previous-user-group">
+                        {
+                            userInfo.map((user) => (
+                                <div className="previous-user hover-background-grey">
+                                    <div className="user-icon">{user.userIcon}</div>
+                                    <div className="user-info">
+                                        <div className="user-name">{user.userName}</div>
+                                        <div className="user-email">
+                                            <span className="user-email-addr">{user.userEmailAddr}</span>
+                                            <svg height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"><path d="M0 0h20v20H0V0z" fill="none"></path><path d="M6.18 7L10 10.82 13.82 7 15 8.17l-5 5-5-5z"></path></svg>
+                                        </div>
+                                    </div>
+                                    <div className="user-state">Signed out</div>
+                                </div>
+                            ))
+                        }
+                        <div className="add-user hover-background-grey">
+                            <svg height="20" viewBox="0 0 24 24" width="20" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"><path d="M9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 7c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm6 5H3v-.99C3.2 16.29 6.3 15 9 15s5.8 1.29 6 2v1zm3-4v-3h-3V9h3V6h2v3h3v2h-3v3h-2z"></path></svg>
+                            <span className="add-another-user">Add another account</span>
+                        </div>
+                    </section>
+                    <a className="sign-out-button hover-background-grey" href="# ">Sign out</a>
+                    <section class="user-footer">
+                        <a className="hover-background-grey" href="https://policies.google.com/privacy?hl=en&authuser=0">Privacy Policy</a>
+                        <span>•</span>
+                        <a className="hover-background-grey" href="https://myaccount.google.com/termsofservice?hl=en&authuser=0">Terms of Service</a>
+                    </section>
+                </div>
+            }
+        </div>
+    );
 
-};
+}
 
 export default Header;
